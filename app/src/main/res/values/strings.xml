@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SubcomponentBuilder</string>
+    <string name="go_to_second_activity">Go to SecondActivity</string>
+    <string name="second_activity">SecondActivity</string>
+</resources>
