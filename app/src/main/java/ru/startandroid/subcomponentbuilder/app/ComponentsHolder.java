@@ -1,22 +1,31 @@
 package ru.startandroid.subcomponentbuilder.app;
 
 import android.content.Context;
-import android.os.Bundle;
+import android.content.Intent;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.inject.Inject;
+import javax.inject.Provider;
+
+import dagger.Lazy;
 import ru.startandroid.subcomponentbuilder.app.dagger.AppComponent;
 import ru.startandroid.subcomponentbuilder.app.dagger.AppModule;
 import ru.startandroid.subcomponentbuilder.app.dagger.DaggerAppComponent;
-import ru.startandroid.subcomponentbuilder.first.dagger.FirstActivityComponent;
-import ru.startandroid.subcomponentbuilder.second.dagger.SecondActivityComponent;
-import ru.startandroid.subcomponentbuilder.second.dagger.SecondActivityModule;
+import ru.startandroid.subcomponentbuilder.base.ActivityComponent;
+import ru.startandroid.subcomponentbuilder.base.ActivityComponentBuilder;
+import ru.startandroid.subcomponentbuilder.base.ActivityModule;
 
 public class ComponentsHolder {
 
     private final Context context;
 
+    @Inject
+    Map<Class<?>, Provider<ActivityComponentBuilder>> builders;
+
+    private Map<Class<?>, ActivityComponent> components;
     private AppComponent appComponent;
-    private FirstActivityComponent firstActivityComponent;
-    private SecondActivityComponent secondActivityComponent;
 
     public ComponentsHolder(Context context) {
         this.context = context;
@@ -24,40 +33,35 @@ public class ComponentsHolder {
 
     void init() {
         appComponent = DaggerAppComponent.builder().appModule(new AppModule(context)).build();
+        appComponent.injectComponentsHolder(this);
+        components = new HashMap<>();
     }
-
-    // AppComponent
 
     public AppComponent getAppComponent() {
         return appComponent;
     }
 
 
-    // FirstActivityComponent
+    public ActivityComponent getActivityComponent(Class<?> cls) {
+        return getActivityComponent(cls, null);
+    }
 
-    public FirstActivityComponent getFirstActivityComponent() {
-        if (firstActivityComponent == null) {
-            firstActivityComponent = getAppComponent().createFirstActivityComponent();
+    public ActivityComponent getActivityComponent(Class<?> cls, ActivityModule module) {
+        ActivityComponent component = components.get(cls);
+        if (component == null) {
+            ActivityComponentBuilder builder = builders.get(cls).get();
+            if (module != null) {
+                builder.module(module);
+            }
+            component = builder.build();
+            components.put(cls, component);
         }
-        return firstActivityComponent;
+        return component;
     }
 
-    public void releaseFirstActivityComponent() {
-        firstActivityComponent = null;
-    }
+    public void releaseActivityComponent(Class<?> cls) {
+        components.put(cls, null);
 
-
-    //SecondActivityComponent
-
-    public SecondActivityComponent getSecondActivityComponent(Bundle args) {
-        if (secondActivityComponent == null) {
-            secondActivityComponent = getAppComponent().createSecondActivityComponent(new SecondActivityModule(args));
-        }
-        return secondActivityComponent;
-    }
-
-    public void releaseSecondActivityComponent() {
-        secondActivityComponent = null;
     }
 
 }

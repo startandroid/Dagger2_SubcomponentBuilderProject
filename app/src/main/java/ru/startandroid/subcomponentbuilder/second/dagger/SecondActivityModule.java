@@ -4,10 +4,11 @@ import android.os.Bundle;
 
 import dagger.Module;
 import dagger.Provides;
+import ru.startandroid.subcomponentbuilder.base.ActivityModule;
 import ru.startandroid.subcomponentbuilder.second.SecondActivityPresenter;
 
 @Module
-public class SecondActivityModule {
+public class SecondActivityModule implements ActivityModule {
 
     private final Bundle args;
 

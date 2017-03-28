@@ -1,10 +1,19 @@
 package ru.startandroid.subcomponentbuilder.first.dagger;
 
 import dagger.Subcomponent;
+import ru.startandroid.subcomponentbuilder.base.ActivityComponent;
+import ru.startandroid.subcomponentbuilder.base.ActivityComponentBuilder;
 import ru.startandroid.subcomponentbuilder.first.FirstActivity;
+import ru.startandroid.subcomponentbuilder.first.FirstActivityPresenter;
 
 @FirstActivityScope
 @Subcomponent(modules = FirstActivityModule.class)
-public interface FirstActivityComponent {
-    void inject(FirstActivity firstActivity);
+public interface FirstActivityComponent extends ActivityComponent<FirstActivity> {
+
+    @Subcomponent.Builder
+    interface Builder extends ActivityComponentBuilder<FirstActivityComponent, FirstActivityModule> {
+
+    }
+
+
 }

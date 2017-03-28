@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.startandroid.subcomponentbuilder.R;
+import ru.startandroid.subcomponentbuilder.first.dagger.FirstActivityComponent;
 import ru.startandroid.subcomponentbuilder.second.SecondActivity;
 import ru.startandroid.subcomponentbuilder.app.App;
 
@@ -23,8 +24,8 @@ public class FirstActivity extends AppCompatActivity {
         setContentView(R.layout.first_activity);
 
         ButterKnife.bind(this);
-
-        App.getApp(this).getComponentsHolder().getFirstActivityComponent().inject(this);
+        FirstActivityComponent component = (FirstActivityComponent) App.getApp(this).getComponentsHolder().getActivityComponent(getClass());
+        component.inject(this);
     }
 
     @OnClick(R.id.goToSecondActivity)
@@ -36,7 +37,7 @@ public class FirstActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         if (isFinishing()) {
-            App.getApp(this).getComponentsHolder().releaseFirstActivityComponent();
+            App.getApp(this).getComponentsHolder().releaseActivityComponent(getClass());
         }
     }
 }
