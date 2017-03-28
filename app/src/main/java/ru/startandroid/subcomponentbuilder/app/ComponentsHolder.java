@@ -1,7 +1,6 @@
 package ru.startandroid.subcomponentbuilder.app;
 
 import android.content.Context;
-import android.content.Intent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +8,6 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Provider;
 
-import dagger.Lazy;
 import ru.startandroid.subcomponentbuilder.app.dagger.AppComponent;
 import ru.startandroid.subcomponentbuilder.app.dagger.AppModule;
 import ru.startandroid.subcomponentbuilder.app.dagger.DaggerAppComponent;

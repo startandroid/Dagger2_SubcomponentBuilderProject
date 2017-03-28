@@ -1,8 +1,7 @@
 package ru.startandroid.subcomponentbuilder.second;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 
 import javax.inject.Inject;
 
@@ -24,11 +23,10 @@ public class SecondActivity extends AppCompatActivity {
         setContentView(R.layout.second_activity);
 
         Bundle args = getIntent().getBundleExtra(EXTRA_ARGS);
-        args = new Bundle();
-        args.putString("1", "2");
-        SecondActivityComponent component = (SecondActivityComponent) App.getApp(this).getComponentsHolder().getActivityComponent(getClass(), new SecondActivityModule(args));
+        SecondActivityComponent component =
+                (SecondActivityComponent) App.getApp(this).getComponentsHolder()
+                        .getActivityComponent(getClass(), new SecondActivityModule(args));
         component.inject(this);
-        Log.d("qweee", " presenter " + presenter + ", "  + presenter.gett());
     }
 
     @Override

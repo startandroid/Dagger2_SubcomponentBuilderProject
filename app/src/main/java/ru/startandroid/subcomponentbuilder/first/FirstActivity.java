@@ -24,7 +24,9 @@ public class FirstActivity extends AppCompatActivity {
         setContentView(R.layout.first_activity);
 
         ButterKnife.bind(this);
-        FirstActivityComponent component = (FirstActivityComponent) App.getApp(this).getComponentsHolder().getActivityComponent(getClass());
+        FirstActivityComponent component =
+                (FirstActivityComponent) App.getApp(this).getComponentsHolder()
+                        .getActivityComponent(getClass());
         component.inject(this);
     }
 

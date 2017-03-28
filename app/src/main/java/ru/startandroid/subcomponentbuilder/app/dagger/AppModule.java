@@ -1,7 +1,6 @@
 package ru.startandroid.subcomponentbuilder.app.dagger;
 
 import android.content.Context;
-import android.content.Intent;
 
 import dagger.Module;
 import dagger.Provides;

@@ -9,8 +9,4 @@ public class SecondActivityPresenter {
     public SecondActivityPresenter(Bundle args) {
         this.args = args;
     }
-
-    public String gett() {
-        return args.getString("1");
-    }
 }
